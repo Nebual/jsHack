@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "target": "ES5",
+    "outFile": "public/js/monolith.js",
+    "rootDir": "src/ts"
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
