@@ -73,14 +73,10 @@ class Terminal {
     }
 
     cat(args:string[]) {
-        let result = '';
-        try {
-            result = this.currentFS.read(args[1]);
-        } catch (e) {
-            this.echo('cat: ' + e.message);
-            return;
+        let result = this.currentFS.read(args[1]);
+        if(result) {
+            this.echo(result);
         }
-        this.echo(result);
     }
 
     public setPromptUser(user:string):void {
