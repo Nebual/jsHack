@@ -75,6 +75,39 @@ class RegexFileSystem {
         return file.read();
     }
 
+    public move(source: string, dest: string):void {
+        if(!dest) {
+            return this.error("mv: Need a destination!");
+        }
+        let sourcePath = this.resolve_path(source);
+        let sourceFile = this.files[sourcePath];
+        if(!sourceFile) {
+            return this.error("mv: Need a source!");
+        }
+        let destPath = this.resolve_path(dest);
+        sourceFile.read(); // trigger events
+        sourceFile.move(destPath);
+        delete this.files[sourcePath];
+        this.files[destPath] = sourceFile;
+        sourceFile.write(); // trigger events
+    }
+
+    public copy(source: string, dest: string):void {
+        if(!dest) {
+            return this.error("cp: Need a destination!");
+        }
+        let sourcePath = this.resolve_path(source);
+        let sourceFile = this.files[sourcePath];
+        if(!sourceFile) {
+            return this.error("cp: Need a source!");
+        }
+        let destPath = this.resolve_path(dest);
+        sourceFile.read(); // trigger events
+        let destFile = sourceFile.clone(destPath);
+        this.files[destPath] = destFile;
+        destFile.write(); // trigger events
+    }
+
     private error(msg:string):void {
         terminal.echo(msg);
     }

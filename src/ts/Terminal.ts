@@ -67,6 +67,12 @@ class Terminal {
         this.echo(this.currentFS.pwd());
         this.updatePrompt();
     }
+    mv(args:string[]) {
+        this.currentFS.move(args[1], args[2]);
+    }
+    cp(args:string[]) {
+        this.currentFS.copy(args[1], args[2]);
+    }
 
     pwd(args:string[]) {
         this.echo(this.currentFS.pwd());
